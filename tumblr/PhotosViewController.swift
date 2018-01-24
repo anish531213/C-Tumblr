@@ -50,6 +50,16 @@ class PhotosViewController: UIViewController, UITableViewDelegate, UITableViewDa
         session.configuration.requestCachePolicy = .reloadIgnoringLocalCacheData
         let task = session.dataTask(with: url) { (data, response, error) in
             if let error = error {
+                let alert = UIAlertController(title: "Cannot Get Photos", message: "The internet connection appears to be offline", preferredStyle: .alert)
+                
+                let cancelAction = UIAlertAction(title: "Try Again", style: .cancel) { (action) in
+                    
+                    self.loadPhotos()
+                    // handle cancel response here. Doing nothing will dismiss the view.
+                }
+                alert.addAction(cancelAction)
+                self.present(alert, animated: true, completion: nil)
+                
                 print(error.localizedDescription)
             } else if let data = data,
                 let dataDictionary = try! JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {

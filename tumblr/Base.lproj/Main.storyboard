@@ -30,7 +30,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="277.66666666666669"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uAf-Pc-9vy">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="logo-1200-630" translatesAutoresizingMaskIntoConstraints="NO" id="uAf-Pc-9vy">
                                                     <rect key="frame" x="0.0" y="-11" width="414" height="289"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" red="0.24861838946724779" green="1" blue="0.0040594867907350896" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -56,4 +56,7 @@
             <point key="canvasLocation" x="405.79710144927537" y="44.836956521739133"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="logo-1200-630" width="1200" height="630"/>
+    </resources>
 </document>
