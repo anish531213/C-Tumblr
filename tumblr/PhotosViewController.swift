@@ -91,16 +91,17 @@ class PhotosViewController: UIViewController, UITableViewDelegate, UITableViewDa
     */
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let post = self.posts {
-            return post.count
-        }
-        return 0
+//        if let post = self.posts {
+//            return post.count
+//        }
+//        return 0
+        return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PhotoCell", for: indexPath) as! PhotoCell
 
-        let post = posts![indexPath.row]
+        let post = posts![indexPath.section]
         if let photos = post["photos"] as? [[String: Any]] {
             // photos is NOT nil, we can use it!
             // TODO: Get the photo url
@@ -120,12 +121,56 @@ class PhotosViewController: UIViewController, UITableViewDelegate, UITableViewDa
         return cell
     }
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        if let post = self.posts {
+            return post.count
+        }
+        return 0
+    }
+
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: 320, height: 50))
+        headerView.backgroundColor = UIColor(white: 1, alpha: 0.9)
+        
+        let profileView = UIImageView(frame: CGRect(x: 15, y: 10, width: 30, height: 30))
+        profileView.clipsToBounds = true
+        profileView.layer.cornerRadius = 15;
+        profileView.layer.borderColor = UIColor(white: 0.7, alpha: 0.8).cgColor
+        profileView.layer.borderWidth = 1;
+        
+        // Set the avatar
+        profileView.af_setImage(withURL: URL(string: "https://api.tumblr.com/v2/blog/humansofnewyork.tumblr.com/avatar")!)
+        headerView.addSubview(profileView)
+        
+        let publishDateView = UILabel(frame: CGRect(x: 60, y: 15, width:200, height:20))
+        publishDateView.adjustsFontSizeToFitWidth = true
+        
+        let post = posts![section]
+        
+        let date = Date(timeIntervalSince1970: post["timestamp"] as! TimeInterval)
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeZone = TimeZone(abbreviation: "ET")
+        dateFormatter.dateFormat = "MMM D, yyyy, HH:mm"
+        let strDate = dateFormatter.string(from: date)
+        
+        publishDateView.text = strDate
+        
+        headerView.addSubview(publishDateView)
+        
+        return headerView
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 40
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         let cell = sender as! UITableViewCell
 
         if let indexPath = tableView.indexPath(for: cell) {
-            let imagePost = self.posts![indexPath.row]
+            let imagePost = self.posts![indexPath.section]
             let vc = segue.destination as! PhotoDetailsViewController
             let photos = imagePost["photos"] as? [[String: Any]]
             let photo = photos![0]
@@ -136,8 +181,9 @@ class PhotosViewController: UIViewController, UITableViewDelegate, UITableViewDa
             vc.imageUrl = urlString
             tableView.deselectRow(at: indexPath, animated: true)
         }
-      
-
+    
     }
+    
+    
 
 }
