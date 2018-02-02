@@ -13,9 +13,14 @@ class PhotoDetailsViewController: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
     
     var imageUrl: String?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let tapGesture = UIPinchGestureRecognizer(target: self, action: #selector(pinchPhoto(sender:)))
+        
+        self.view.addGestureRecognizer(tapGesture)
+        
         if let url = URL(string: imageUrl!) {
             imageView.af_setImage(withURL: url)
         } else {
@@ -29,7 +34,19 @@ class PhotoDetailsViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @objc func pinchPhoto(sender: UIPinchGestureRecognizer) {
+        print("image i=pinched")
+        
+        performSegue(withIdentifier: "fullScreenSegue", sender: PhotoDetailsViewController.self)
+        
+    }
 
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let fullScreen = segue.destination as! FullScreenPhotoViewController
+        fullScreen.image = imageView
+    }
+    
     /*
     // MARK: - Navigation
 
