@@ -11,13 +11,17 @@ import UIKit
 class FullScreenPhotoViewController: UIViewController, UIScrollViewDelegate {
 
     @IBOutlet weak var scrollView: UIScrollView!
-    
     @IBOutlet weak var image: UIImageView!
+    
+    var imageUrlString: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         scrollView.delegate = self
+        
+        let imgURL = URL(string: imageUrlString)
+        image.af_setImage(withURL: imgURL!)
         // Do any additional setup after loading the view.
     }
 
@@ -30,6 +34,9 @@ class FullScreenPhotoViewController: UIViewController, UIScrollViewDelegate {
         return image
     }
 
+    @IBAction func closeFullScreen(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
     /*
     // MARK: - Navigation
 

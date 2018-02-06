@@ -44,7 +44,7 @@ class PhotoDetailsViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let fullScreen = segue.destination as! FullScreenPhotoViewController
-        fullScreen.image = imageView
+        fullScreen.imageUrlString = imageUrl
     }
     
     /*
