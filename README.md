@@ -56,7 +56,7 @@ The following **required** user stories are complete:
 The following **stretch** user stories are implemented:
 
 - [x] Add Avatar and Publish Dates (+2pt)
-- [ ] Zoomable Photo View (+2pt)
+- [x] Zoomable Photo View (+2pt)
 - [x] Infinite Scrolling (+2pt)
 
 The following **additional** user stories are implemented:
